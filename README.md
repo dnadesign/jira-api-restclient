@@ -34,3 +34,10 @@ MIT License
 # JIRA5 Rest API Documents
 
 https://developer.atlassian.com/static/rest/jira/5.0.html
+
+# NOTE
+
+## PHP 8 compatibility breaking changes
+
+In order to make v1 compatible with PHP 8, the signature of Jira_Api::api() and Jira_Api_Client_ClientInterface::sendRequest() have changed.
+Parameters have been re-ordered to comply with PHP 8 syntax, see [docs](https://www.php.net/manual/en/migration80.deprecated.php#migration80.deprecated.core)

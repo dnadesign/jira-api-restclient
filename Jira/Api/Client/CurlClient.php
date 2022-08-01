@@ -36,15 +36,15 @@ class Jira_Api_Client_CurlClient implements Jira_Api_Client_ClientInterface
     /**
      * send request to the api server
      *
-     * @param $method
      * @param $url
-     * @param array $data
+     * @param $method
      * @param $endpoint
      * @param $credential
+     * @param array $data
      * @return array|string
      * @throws Exception
      */
-    public function sendRequest($method, $url, $data = array(), $endpoint, Jira_Api_Authentication_AuthenticationInterface $credential, $isFile = FALSE, $debug = FALSE)
+    public function sendRequest($url, $method, $endpoint, Jira_Api_Authentication_AuthenticationInterface $credential, $data = array(), $isFile = FALSE, $debug = FALSE)
     {
         if (!($credential instanceof Jira_Api_Authentication_Basic)) {
             throw new Exception(sprintf("CurlClient does not support %s authentication.", get_class($credential)));

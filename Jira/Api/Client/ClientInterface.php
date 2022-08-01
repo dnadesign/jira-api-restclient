@@ -27,14 +27,14 @@ interface Jira_Api_Client_ClientInterface
     /**
      * send request to the api server
      *
-     * @param $method
      * @param $url
-     * @param array $data
+     * @param $method
      * @param $endpoint
      * @param $credential
+     * @param array $data
      * @return array|string
      *
      * @throws Exception
      */
-    public function sendRequest($method, $url, $data = array(), $endpoint, Jira_Api_Authentication_AuthenticationInterface $credential);
+    public function sendRequest($url, $method, $endpoint, Jira_Api_Authentication_AuthenticationInterface $credential,  $data = array());
 }

@@ -112,7 +112,7 @@ class Jira_Api
     {
         if (!count($this->fields)) {
             $fields  = array();
-            $_fields = $this->api(self::REQUEST_GET, "/rest/api/2/field", array());
+            $_fields = $this->api("/rest/api/2/field", self::REQUEST_GET, array());
 
             /* set hash key as custom field id */
             foreach($_fields->getResult() as $k => $v) {
@@ -135,12 +135,12 @@ class Jira_Api
      */
     public function getIssue($issueKey, $expand = '')
     {
-        return $this->api(self::REQUEST_GET, sprintf("/rest/api/2/issue/%s", $issueKey), array('expand' => $expand));
+        return $this->api(sprintf("/rest/api/2/issue/%s", $issueKey), self::REQUEST_GET, array('expand' => $expand));
     }
 
     public function editIssue($issueKey, $params)
     {
-        return $this->api(self::REQUEST_PUT, sprintf("/rest/api/2/issue/%s", $issueKey), $params);
+        return $this->api(sprintf("/rest/api/2/issue/%s", $issueKey), self::REQUEST_PUT, $params);
     }
 
 
@@ -148,32 +148,32 @@ class Jira_Api
 
     public function getAttachment($attachmentId)
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/attachment/$attachmentId", array(), true);
+        $result = $this->api("/rest/api/2/attachment/$attachmentId", self::REQUEST_GET, array(), true);
 
         return $result;
     }
 
     public function getProjects()
     {
-        return $this->api(self::REQUEST_GET, "/rest/api/2/project");
+        return $this->api("/rest/api/2/project", self::REQUEST_GET);
     }
 
     public function getProject($projectKey)
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/project/{$projectKey}", array(), true);
+        $result = $this->api("/rest/api/2/project/{$projectKey}", self::REQUEST_GET, array(), true);
 
         return $result;
     }
 
     public function getRoles($projectKey)
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/project/{$projectKey}/roles", array(), true);
+        $result = $this->api("/rest/api/2/project/{$projectKey}/roles", self::REQUEST_GET, array(), true);
         return $result;
     }
 
     public function getRoleDetails($projectKey, $roleId)
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/project/{$projectKey}/role/{$roleId}", array(), true);
+        $result = $this->api("/rest/api/2/project/{$projectKey}/role/{$roleId}", self::REQUEST_GET, array(), true);
         return $result;
     }
 
@@ -206,7 +206,7 @@ class Jira_Api
             if(${$parameterName} !== null)
                 $data[$parameterName] = implode(",", ${$parameterName});
 
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/issue/createmeta", $data, true);
+        $result = $this->api("/rest/api/2/issue/createmeta", self::REQUEST_GET, $data, true);
         return $result;
     }
 
@@ -228,7 +228,7 @@ class Jira_Api
                 'body' => $params
             );
         }
-        return $this->api(self::REQUEST_POST, sprintf("/rest/api/2/issue/%s/comment", $issueKey), $params);
+        return $this->api(sprintf("/rest/api/2/issue/%s/comment", $issueKey), self::REQUEST_POST, $params);
     }
 
     /**
@@ -242,7 +242,7 @@ class Jira_Api
      */
     public function getTransitions($issueKey, $params)
     {
-        return $this->api(self::REQUEST_GET, sprintf("/rest/api/2/issue/%s/transitions", $issueKey), $params);
+        return $this->api(sprintf("/rest/api/2/issue/%s/transitions", $issueKey), self::REQUEST_GET, $params);
     }
 
     /**
@@ -256,7 +256,7 @@ class Jira_Api
      */
     public function transition($issueKey, $params)
     {
-        return $this->api(self::REQUEST_POST, sprintf("/rest/api/2/issue/%s/transitions", $issueKey), $params);
+        return $this->api(sprintf("/rest/api/2/issue/%s/transitions", $issueKey), self::REQUEST_POST, $params);
     }
 
     /**
@@ -267,7 +267,7 @@ class Jira_Api
     public function getIssueTypes()
     {
         $result = array();
-        $types = $this->api(self::REQUEST_GET, "/rest/api/2/issuetype",array(), true);
+        $types = $this->api("/rest/api/2/issuetype", self::REQUEST_GET, array(), true);
 
         foreach ($types as $issue_type) {
             $result[] = new Jira_IssueType($issue_type);
@@ -283,7 +283,7 @@ class Jira_Api
      */
     public function getVersions($projectKey)
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/project/{$projectKey}/versions", array(), true);
+        $result = $this->api("/rest/api/2/project/{$projectKey}/versions", self::REQUEST_GET, array(), true);
         return $result;
     }
 
@@ -296,7 +296,7 @@ class Jira_Api
     {
     	if (!count($this->priorities)) {
     		$priorities  = array();
-    		$result = $this->api(self::REQUEST_GET, "/rest/api/2/priority", array());
+    		$result = $this->api("/rest/api/2/priority", self::REQUEST_GET, array());
     	    /* set hash key as custom field id */
     		foreach($result->getResult() as $k => $v) {
     			$priorities[$v['id']] = $v;
@@ -315,7 +315,7 @@ class Jira_Api
     {
     	if (!count($this->statuses)) {
     		$statuses  = array();
-    		$result = $this->api(self::REQUEST_GET, "/rest/api/2/status", array());
+    		$result = $this->api("/rest/api/2/status", self::REQUEST_GET, array());
     		/* set hash key as custom field id */
     		foreach($result->getResult() as $k => $v) {
     			$statuses[$v['id']] = $v;
@@ -348,7 +348,7 @@ class Jira_Api
 
         $default = array_merge($default, $options);
 
-        $result = $this->api(self::REQUEST_POST, "/rest/api/2/issue/", array(
+        $result = $this->api("/rest/api/2/issue/", self::REQUEST_POST, array(
             "fields" => $default
         ));
 
@@ -367,7 +367,7 @@ class Jira_Api
      */
     public function search($jql, $startAt = 0, $maxResult = 20, $fields = '*navigable')
     {
-        $result = $this->api(self::REQUEST_GET, "/rest/api/2/search", array(
+        $result = $this->api("/rest/api/2/search", self::REQUEST_GET, array(
             "jql"        => $jql,
             "startAt"    => $startAt,
             "maxResults" => $maxResult,
@@ -398,7 +398,7 @@ class Jira_Api
             ), $options
         );
 
-        return $this->api(self::REQUEST_POST, "/rest/api/2/version", $options);
+        return $this->api("/rest/api/2/version", self::REQUEST_POST, $options);
     }
 
 
@@ -416,7 +416,7 @@ class Jira_Api
     			"file"            => '@' . $filename,
     	), $options
     	);
-    	return $this->api(self::REQUEST_POST, "/rest/api/2/issue/" . $issue . "/attachments", $options, false ,TRUE);
+    	return $this->api("/rest/api/2/issue/" . $issue . "/attachments", self::REQUEST_POST, $options, false ,TRUE);
     }
 
     /**
@@ -428,17 +428,17 @@ class Jira_Api
      * @param bool $return_as_json
      * @return mixed
      */
-    public function api($method = self::REQUEST_GET, $url, $data = array(), $return_as_json = false, $isfile = false, $debug = FALSE)
+    public function api($url, $method = self::REQUEST_GET, $data = array(), $return_as_json = false, $isfile = false, $debug = FALSE)
     {
-        	$result = $this->client->sendRequest(
-        			$method,
-        			$url,
-        			$data,
-        			$this->getEndpoint(),
-        			$this->authentication,
-        			$isfile,
-        			$debug
-        	);
+        $result = $this->client->sendRequest(
+                $url,
+                $method,
+                $this->getEndpoint(),
+                $this->authentication,
+                $data,
+                $isfile,
+                $debug
+        );
 
         if (strlen($result)) {
             $json = json_decode($result, true);
@@ -469,11 +469,11 @@ class Jira_Api
     {
         $result = $this->client->sendRequest
         (
-            self::REQUEST_GET,
             $url,
-            array(),
+            self::REQUEST_GET,
             null,
             $this->authentication,
+            array(),
             true,
             false
         );
@@ -509,7 +509,7 @@ class Jira_Api
     {
         $result = array();
         foreach($watchers as $w){
-            $result[] = $this->api(self::REQUEST_POST, sprintf("/rest/api/2/issue/%s/watchers", $issueKey), $w);
+            $result[] = $this->api(sprintf("/rest/api/2/issue/%s/watchers", $issueKey), self::REQUEST_POST, $w);
         }
         return $result;
     }
