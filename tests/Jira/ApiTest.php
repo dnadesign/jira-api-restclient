@@ -503,12 +503,12 @@ class ApiTest extends AbstractApiTestCase
 	 * @dataProvider getCreateMetaDataProvider
 	 */
 	public function testGetCreateMeta(
-		array $project_ids = null,
-		array $project_keys = null,
-		array $issue_type_ids = null,
-		array $issue_type_names = null,
-		array $expand = null,
-		array $params = array()
+		?array $project_ids = null,
+		?array $project_keys = null,
+		?array $issue_type_ids = null,
+		?array $issue_type_names = null,
+		?array $expand = null,
+		?array $params = array()
 	) {
 		$response = file_get_contents(__DIR__ . '/resources/api_get_create_meta.json');
 
