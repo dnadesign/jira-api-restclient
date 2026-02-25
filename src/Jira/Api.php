@@ -109,7 +109,7 @@ class Api
 	public function __construct(
 		$endpoint,
 		AuthenticationInterface $authentication,
-		ClientInterface $client = null
+		?ClientInterface $client
 	) {
 		$this->setEndPoint($endpoint);
 		$this->authentication = $authentication;
