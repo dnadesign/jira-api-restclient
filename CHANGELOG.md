@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - The `$params` argument of the `Api::getTransitions` method is now optional by [@aik099] (#244).
 - The `$start_at = 0` argument of `Api::search` method was renamed into the `$next_page_token = null` to reflect underlying Jira API changes by [@aik099] (#248).
 - Improved performance of `Result::getIssuesCount` method by [@aik099] (#248).
+- Drop support for php >7.4.0 [@alex-dna] (#250).
 
 ### Removed
 - The `Api::search` method and the `Walker` class no longer return total issue count, because underlaying Jira API doesn't support this [@aik099] (#248).
@@ -101,3 +102,4 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 [@alopex06]: https://github.com/alopex06
 [@benPesso]: https://github.com/benPesso
 [@danillofb]: https://github.com/danillofb
+[@alex-dna]: https://github.com/alex-dna
