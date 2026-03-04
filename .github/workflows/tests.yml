@@ -49,7 +49,7 @@ jobs:
           tools: composer
           # PHP 7.1 development web server segfaults if timezone not set.
           ini-values: date.timezone=Europe/Paris, error_reporting=-1, display_errors=On
-      
+
       - name: Configure for PHP >= 7.1
         if: "${{ matrix.php >= '7.1' }}"
         run: |
