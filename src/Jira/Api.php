@@ -109,7 +109,7 @@ class Api
 	public function __construct(
 		$endpoint,
 		AuthenticationInterface $authentication,
-		ClientInterface $client = null
+		?ClientInterface $client = null
 	) {
 		$this->setEndPoint($endpoint);
 		$this->authentication = $authentication;
@@ -335,11 +335,11 @@ class Api
 	 * @link   https://developer.atlassian.com/cloud/jira/platform/rest/v2/api-group-issues/#api-rest-api-2-issue-createmeta-get
 	 */
 	public function getCreateMeta(
-		array $project_ids = null,
-		array $project_keys = null,
-		array $issue_type_ids = null,
-		array $issue_type_names = null,
-		array $expand = null
+		?array $project_ids = null,
+		?array $project_keys = null,
+		?array $issue_type_ids = null,
+		?array $issue_type_names = null,
+		?array $expand = null
 	) {
 		// Create comma-separated query parameters for the supplied filters.
 		$data = array();
@@ -762,7 +762,7 @@ class Api
 		array $object,
 		$relationship = null,
 		$global_id = null,
-		array $application = null
+		?array $application = null
 	) {
 		$params = array_filter(array(
 			'globalId' => $global_id,
